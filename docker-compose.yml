@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  src:
+      build: .
+      restart: always
+      ports:
+        - '8000:80'
+      volumes:
+        - server.ts
+      networks:
+        - default
+  postgres:
+      image: postgres:latest
+      environment:
+        - POSTGRES_PASSWORD=postgrespw
+      ports:
+        - 5432:5432
+      volumes:
+        - db_data:/var/lib/postgresql
+      networks:
+        - default
+volumes:
+  db_data:
